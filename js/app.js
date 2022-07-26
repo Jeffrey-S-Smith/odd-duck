@@ -172,7 +172,8 @@ function renderChart() {
     photoClicks.push(allPhoto[i].click);
   }
   console.log(photoView,photoClicks);
-
+  
+  Chart.defaults.font.size = 16;
   const data = {
     labels: photoName,
     datasets: [
@@ -185,7 +186,8 @@ function renderChart() {
         borderColor: [
           'rgba(103, 97, 100, 0.8)'
         ],
-        borderWidth: 1
+        borderWidth: 1,
+        barPercentage: 0.5
       },
       {
         label: 'Clicks/Votes',
@@ -196,7 +198,8 @@ function renderChart() {
         borderColor: [
           'rgba(14, 14, 14, 0.8)',
         ],
-        borderWidth: 1
+        borderWidth: 1,
+        barPercentage: 0.5
       }
     ]
   };
@@ -206,7 +209,15 @@ function renderChart() {
     data: data,
     options: {
       scales: {
+        x: {
+          grid: {
+            display: false
+          }
+        },
         y: {
+          grid: {
+            display: false
+          },
           beginAtZero: true
         }
       }
