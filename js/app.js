@@ -32,8 +32,8 @@
 
 /* Global Variable*/
 let myPhotoContainer = document.querySelector('section');
-let myButton = document.querySelector('section + div');
-let ul = document.querySelector('ul');
+// let myButton = document.querySelector('section + div');
+// let ul = document.querySelector('ul');
 
 let img1 = document.querySelector('section img:first-child');
 let img2 = document.querySelector('section img:nth-child(2)');
@@ -42,14 +42,14 @@ let img3 = document.querySelector('section img:nth-child(3)');
 let allPhoto = [];
 let click = 0;
 
-let clickedAllowed = 25;
+let clickedAllowed = 10;
 
 
 /* CONSTRUCTOR*/
 function Photo(name, fileExtension = '.jpg') {
   this.name = name;
   this.src = `img/${this.name}${fileExtension}`;
-  this.clicks = 0;
+  this.click = 0;
   this.views = 0;
 }
 
@@ -94,40 +94,44 @@ function renderPhoto() {
 
 
 
-function handlePhotoClick(event) {
-  if (event.target === myPhotoContainer) {
+function handlePhotoClick(e) {
+  if (e.target === myPhotoContainer) {
     alert('Please click on an image');
   }
   click++;
-  let clickedPhoto = event.target.alt;
+  let clickedPhoto = e.target.alt;
   console.log(clickedPhoto);
 
   for (let i = 0; i < allPhoto.length; i++) {
-    if (clickedAllowed === allPhoto[i].name) {
+    console.log(allPhoto[i]);
+    if (clickedPhoto === allPhoto[i].name) {
+      console.log('counting the click');
       allPhoto[i].click++;
       break;
     }
   }
   renderPhoto();
   if (click === clickedAllowed) {
-    myButton.className = 'clicks-allowed';
+    // myButton.className = 'clicks-allowed';
     myPhotoContainer.removeEventListener('click', handlePhotoClick);
-    myButton.addEventListener('click', handleButtonClick);
+    renderChart();
+    // myButton.addEventListener('click', handleButtonClick);
   }
 }
-function handleButtonClick() {
-  // if (clicks === clickAllowed) {
-  renderResults();
-  // }
-}
-function renderResults() {
+// function handleButtonClick() {
+//   // if (clicks === clickAllowed) {
+//   renderResults();
+//   // }
+// }
 
-  for (let i = 0; i < allPhoto.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${allPhoto[i].name} had ${allPhoto[i].views} views and was clicked on ${allPhoto[i].click} times`;
-    ul.appendChild(li);
-  }
-}
+// function renderResults() {
+
+//   for (let i = 0; i < allPhoto.length; i++) {
+//     let li = document.createElement('li');
+//     li.textContent = `${allPhoto[i].name} had ${allPhoto[i].views} views and was clicked on ${allPhoto[i].click} times`;
+//     ul.appendChild(li);
+//   }
+// }
 
 
 
@@ -155,3 +159,62 @@ allPhoto.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, dogDuck
 
 renderPhoto();
 myPhotoContainer.addEventListener('click', handlePhotoClick);
+
+// chartJS for my Data for view and click
+
+function renderChart() {
+  let photoName = [];
+  let photoView = [];
+  let photoClicks = [];
+  for (let i = 0; i < allPhoto.length; i++) {
+    photoName.push(allPhoto[i].name);
+    photoView.push(allPhoto[i].views);
+    photoClicks.push(allPhoto[i].click);
+  }
+  console.log(photoView,photoClicks);
+
+  const data = {
+    labels: photoName,
+    datasets: [
+      {
+        label: 'Views',
+        data: photoView,
+        backgroundColor: [
+          'rgba(255, 99, 71, 1)'
+        ],
+        borderColor: [
+          'rgba(103, 97, 100, 0.8)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: 'Clicks/Votes',
+        data: photoClicks ,
+        backgroundColor: [
+          'rgba(245, 40, 145, 0.8)'
+        ],
+        borderColor: [
+          'rgba(14, 14, 14, 0.8)',
+        ],
+        borderWidth: 1
+      }
+    ]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+  };
+
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+}
