@@ -59,10 +59,6 @@ function randomPhoto(){
   return Math.floor(Math.random() * allPhoto.length);
 }
 
-function randomPhoto(){
-  return Math.floor(Math.random() * allPhoto.length);
-}
-
 function renderPhoto() {
 
   let image1 = randomPhoto();
