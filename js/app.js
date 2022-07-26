@@ -59,6 +59,10 @@ function randomPhoto(){
   return Math.floor(Math.random() * allPhoto.length);
 }
 
+function randomPhoto(){
+  return Math.floor(Math.random() * allPhoto.length);
+}
+
 function renderPhoto() {
 
   let image1 = randomPhoto();
@@ -81,6 +85,7 @@ function renderPhoto() {
   console.log(allPhoto);
 
 }
+
 
 
 function handlePhotoClick(event) {
