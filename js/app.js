@@ -42,7 +42,7 @@ let img3 = document.querySelector('section img:nth-child(3)');
 let allPhoto = [];
 let click = 0;
 
-let clickedAllowed = 3;
+let clickedAllowed = 25;
 
 
 /* CONSTRUCTOR*/
@@ -65,10 +65,13 @@ function renderPhoto() {
   let image2 = randomPhoto();
   let image3 = randomPhoto();
 
-  // while (image1 === image2 === image3) {
-  //   image3 = randomPhoto();
-  //   console.log(image1, image2, image3);
-  // }
+  while ((image1 === image2 || image2 === image3)) {
+    image2 = randomPhoto();
+    while ((image3 === image1 || image2 === image2)) {
+      image3 = randomPhoto();
+    }
+    break;
+  }
   // first one is dom element
   img1.src = allPhoto[image1].src;
   img1.alt = allPhoto[image1].name;
@@ -122,7 +125,7 @@ function renderResults() {
 
 
 // EXCUTABLE CODE
-let bag = new Photo('bag, .jpg');
+let bag = new Photo('bag');
 let banana = new Photo('banana');
 let bathroom = new Photo('bathroom');
 let boots = new Photo('boots');
