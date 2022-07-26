@@ -70,7 +70,6 @@ function renderPhoto() {
     while ((image3 === image1 || image2 === image2)) {
       image3 = randomPhoto();
     }
-    break;
   }
   // first one is dom element
   img1.src = allPhoto[image1].src;
