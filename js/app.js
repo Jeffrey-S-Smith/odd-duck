@@ -61,13 +61,21 @@ function randomPhoto() {
 
 function renderPhoto() {
 
-  let image1 = randomPhoto();
-  let image2 = randomPhoto();
-  let image3 = randomPhoto();
+  // let image1 = randomPhoto();
+  // let image2 = randomPhoto();
+  // let image3 = randomPhoto();
 
-  while ((image1 === image2 || image2 === image3 || image1 === image3)) {
-    image3 = randomPhoto();
+  let indexArray = [];
+  while (indexArray.length < 3) {
+    let ramNum = randomPhoto();
+    if (!indexArray.includes(ramNum)) {
+      indexArray.push(ramNum);
+    }
   }
+
+  let image1 = indexArray.shift();
+  let image2 = indexArray.shift();
+  let image3 = indexArray.shift();
 
 
   // first one is dom element
