@@ -59,10 +59,13 @@ function randomPhoto() {
   return Math.floor(Math.random() * allPhoto.length);
 }
 
+<<<<<<< HEAD
+=======
 function randomPhoto() {
   return Math.floor(Math.random() * allPhoto.length);
 }
 
+>>>>>>> c2089fa22d099b977f6448c58e757bbd20e2e760
 function renderPhoto() {
 
   let image1 = randomPhoto();
