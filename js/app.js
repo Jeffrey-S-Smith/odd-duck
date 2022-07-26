@@ -46,7 +46,7 @@ let clickedAllowed = 25;
 
 
 /* CONSTRUCTOR*/
-function Photo(name, fileExtension ='.jpg') {
+function Photo(name, fileExtension = '.jpg') {
   this.name = name;
   this.src = `img/${this.name}${fileExtension}`;
   this.clicks = 0;
@@ -55,11 +55,11 @@ function Photo(name, fileExtension ='.jpg') {
 
 /*FUNCTIONS*/
 
-function randomPhoto(){
+function randomPhoto() {
   return Math.floor(Math.random() * allPhoto.length);
 }
 
-function randomPhoto(){
+function randomPhoto() {
   return Math.floor(Math.random() * allPhoto.length);
 }
 
@@ -70,8 +70,10 @@ function renderPhoto() {
   let image3 = randomPhoto();
 
   while ((image1 === image2 || image2 === image3 || image1 === image3)) {
-    image2 = randomPhoto();
+    image3 = randomPhoto();
   }
+
+
   // first one is dom element
   img1.src = allPhoto[image1].src;
   img1.alt = allPhoto[image1].name;
@@ -84,6 +86,7 @@ function renderPhoto() {
   allPhoto[image3].views++;
   console.log(allPhoto);
 
+ 
 }
 
 
@@ -96,7 +99,7 @@ function handlePhotoClick(event) {
   let clickedPhoto = event.target.alt;
   console.log(clickedPhoto);
 
-  for (let i = 0; i< allPhoto.length; i++) {
+  for (let i = 0; i < allPhoto.length; i++) {
     if (clickedAllowed === allPhoto[i].name) {
       allPhoto[i].click++;
       break;
@@ -145,7 +148,7 @@ let unicorn = new Photo('unicorn');
 let waterCan = new Photo('water-can');
 let wineGlass = new Photo('wine-glass');
 
-allPhoto.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, dogDuck,dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
+allPhoto.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
 
 renderPhoto();
 myPhotoContainer.addEventListener('click', handlePhotoClick);
