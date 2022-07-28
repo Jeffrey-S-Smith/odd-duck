@@ -49,10 +49,30 @@ let clickedAllowed = 10;
 function Photo(name, fileExtension = '.jpg') {
   this.name = name;
   this.src = `img/${this.name}${fileExtension}`;
-  this.click = 0;
-  this.views = 0;
+  this.click = newStorage.click;
+  this.views = newStorage.views;
+  this.fileExtension = fileExtension;
+  allPhoto.push(this);
+  
 }
+function getPhoto (){
+  if ((localStorage.getItem('storage') !== null)) {
+    //do have arr in storage
+    let json = JSON.parse(localStorage.getItem('storage'));
+    // console.log(json);
+    for(let newStorage of json){
+      // if (newStorage.name === this.name){
+        console.log(newStorage);
+    let click = newStorage.click;
+       let views = newStorage.views;
+// console.log(newStorage.click);
+      console.log(newStorage.views);
+      }
+    }
+  
 
+}
+getPhoto();
 /*FUNCTIONS*/
 
 function randomPhoto() {
@@ -66,7 +86,7 @@ function renderPhoto() {
   // let image3 = randomPhoto();
 
   let indexArray = [];
-  while (indexArray.length < 3) {
+  while (indexArray.length < 6) {
     let ramNum = randomPhoto();
     if (!indexArray.includes(ramNum)) {
       indexArray.push(ramNum);
@@ -88,7 +108,7 @@ function renderPhoto() {
   img3.src = allPhoto[image3].src;
   img3.alt = allPhoto[image3].name;
   allPhoto[image3].views++;
-  console.log(allPhoto);
+  // console.log(allPhoto);
 
 }
 
@@ -136,26 +156,26 @@ function handlePhotoClick(e) {
 
 
 // EXCUTABLE CODE
-let bag = new Photo('bag');
-let banana = new Photo('banana');
-let bathroom = new Photo('bathroom');
-let boots = new Photo('boots');
-let breakfast = new Photo('breakfast');
-let bubblegum = new Photo('bubblegum');
-let chair = new Photo('chair');
-let dogDuck = new Photo('dog-duck');
-let dragon = new Photo('dragon');
-let pen = new Photo('pen');
-let petSweep = new Photo('pet-sweep');
-let scissors = new Photo('scissors');
-let shark = new Photo('shark');
-let sweep = new Photo('sweep', '.png');
-let tauntaun = new Photo('tauntaun');
-let unicorn = new Photo('unicorn');
-let waterCan = new Photo('water-can');
-let wineGlass = new Photo('wine-glass');
+new Photo('bag');
+new Photo('banana');
+new Photo('bathroom');
+new Photo('boots');
+new Photo('breakfast');
+new Photo('bubblegum');
+new Photo('chair');
+new Photo('dog-duck');
+new Photo('dragon');
+new Photo('pen');
+new Photo('pet-sweep');
+new Photo('scissors');
+new Photo('shark');
+new Photo('sweep', '.png');
+new Photo('tauntaun');
+new Photo('unicorn');
+new Photo('water-can');
+new Photo('wine-glass');
 
-allPhoto.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
+// allPhoto.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
 
 renderPhoto();
 myPhotoContainer.addEventListener('click', handlePhotoClick);
@@ -171,8 +191,11 @@ function renderChart() {
     photoView.push(allPhoto[i].views);
     photoClicks.push(allPhoto[i].click);
   }
-  console.log(photoView,photoClicks);
-  
+
+  localStorage.setItem('storage', JSON.stringify(allPhoto));
+  // console.log(photoView,photoClicks);
+  //chang all the time
+
   Chart.defaults.font.size = 16;
   const data = {
     labels: photoName,
@@ -229,3 +252,5 @@ function renderChart() {
     config
   );
 }
+//As a user, I would like my data to persistently track totals between page refreshes, so that I can keep track of the aggregate number of votes.
+
